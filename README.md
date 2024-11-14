@@ -1,5 +1,5 @@
 # Inventory-System-Project
-CPE100 Inventory System Project
+   CPE100 Inventory System Term Project
 # 📦 Inventory System
 
 ## Project Overview
