@@ -13,44 +13,58 @@ This project is a **C-based Inventory Management System** designed for the CPE10
 
 ---
 
-## 📋 Features
+## 📦 Features
 
 ### 👤 Owner Features
-1. **View Reports and Analysis**
-   - Display inventory reports with options to search and filter by product name or price range.
-
-2. **Product Management (CRUD Operations)**
-   - **Create**: Add a new product to the inventory.
-   - **View**: Check product details including name, price, and stock.
-   - **Edit**: Update details for existing products.
-   - **Delete**: Remove a product from the inventory.
-
-3. **Restocking**
-   - Add stock to any product when required.
-   - Trigger a notification if a product’s stock falls below the minimum threshold, indicating the need for restocking.
-
-4. **Logging**
-   - Maintain a log file to track key actions such as product restocks, customer purchases, and report generation.
-
-5. **Discount Coupons**
-   - Create and manage discount coupons with a unique code, discount percentage, and expiration date.
-   - Allow coupons to be applied at checkout for applicable products.
+- **Inventory Reports**
+  - Search and filter products by name or price range.
+- **Product Management (CRUD)**
+  - Add, view, edit, or delete products from the inventory.
+- **Restocking**
+  - Update stock levels and receive low-stock notifications.
+- **Logging**
+  - Track key actions such as stock updates, purchases, and reports.
+- **Discount Coupons**
+  - Create and manage unique discount codes with expiration dates.
 
 ### 🛒 Customer Features
-1. **View Products**
-   - Browse available products with details (name, description, price, and stock).
-   - Filter products by category or price range.
+- **View Products**
+  - Browse available items with details (name, price, stock).
+- **Shopping**
+  - Add items to a cart, calculate totals, and apply discounts.
+- **Inventory Updates**
+  - Automatically update stock after purchase.
 
-2. **Purchase Products**
-   - Add products to a shopping cart with desired quantities.
-   - Calculate the total cost at checkout, factoring in discounts if applicable.
-   - Update inventory levels automatically after purchase.
+## 🛠️ System Requirements
+- **Language**: C
+- **Storage**: File-based database (text/CSV files)
+- **Interface**: Command-Line Interface (CLI)
+- **Data Structures**: Use `struct` for key elements like products, customers, and transactions.
 
-3. **Discount Coupon Application**
-   - Apply valid discount coupons at checkout to reduce total cost.
-   - Ensure coupons are not expired before allowing application.
+## 📂 Project Structure
+Below is the organized structure for the project's files and functions:
 
----
+### 🗂️ **File Structure**
+```plaintext
+Inventory-System-Project/
+├── src/
+│   ├── main.c               # Entry point
+│   ├── owner_functions.c    # Owner-specific operations
+│   ├── customer_functions.c # Customer-specific operations
+│   ├── utils.c              # Helper functions (e.g., input validation)
+│   ├── file_io.c            # File handling (load/save database)
+│   └── discount.c           # Discount coupon logic
+├── include/
+│   ├── owner_functions.h    # Header for owner functions
+│   ├── customer_functions.h # Header for customer functions
+│   ├── utils.h              # Header for utilities
+│   ├── file_io.h            # Header for file I/O
+│   └── discount.h           # Header for discounts
+├── data/
+│   ├── inventory.csv        # Product inventory database
+│   ├── transactions.log     # Log file for actions
+│   └── coupons.csv          # Discount coupons database
+└── README.md                # Project documentation
 
-## 🗂️ Project Structure
+
 
