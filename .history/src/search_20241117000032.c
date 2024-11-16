@@ -26,7 +26,7 @@ int search(char *path, char *data_name, int *found) {
             fscanf(data, "%s", name);
 
             if (strcmp(string, name) == 0) {
-                printf("Found name\n");
+                printf("Found name");
                 strcpy(data_name, name);
                 *found = 1;
                 fclose(data);
@@ -36,7 +36,7 @@ int search(char *path, char *data_name, int *found) {
         }
 
         if (*found == 0) {
-            printf("Name is not found\n");
+            printf("Name is not found");
         }
         
     }

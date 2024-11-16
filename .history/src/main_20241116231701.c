@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int show_list_product();
 int search();
 
 int main() {
 
-    char *data_path = "data/test.csv";
-    FILE *data = fopen(data_path, "r"); // this is an example
+    char *dataPath = "data/test.csv";
+    FILE *data = fopen(dataPath, "r"); // this is an example
 
     // -- For login system --
     
@@ -34,24 +33,11 @@ int main() {
     // ---------------
 
     // -- For show list of data --
-    
-    show_list_product(data_path);
+    show_list_product(dataPath);
+    printf("Pass");
 
-    // -- test find a name of product -- 
-
-    if (choice == 1) {
-        char data_name[10];
-        int found = 0;
-        search(data_path, data_name, &found);
-
-        if (found == 1) {
-            printf("Now select");
-            for (int i = 0; i < strlen(data_name); i++) {
-                printf("%c", data_name[i]);
-            }
-        }
-    }
-    
+    // -- test run file -- 
+    search(dataPath);
     
     return 0;
 
@@ -76,7 +62,7 @@ int show_list_product(char *path) {
         float price;
 
         while ( !feof(file) ) {
-            fscanf(file, "%10s%10s%d%f", name, type, &quantity, &price);
+            fscanf(file, "%s%s%d%f", name, type, &quantity, &price);
             printf("%s %s %d %f\n", name, type, quantity, price);
         }
 

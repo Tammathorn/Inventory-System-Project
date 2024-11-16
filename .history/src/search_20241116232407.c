@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int search(char *path, char *data_name, int *found) {
+int search(char *path, int *data_type) {
     
     //  -- input and check if it has or not -- 
 
@@ -11,33 +11,35 @@ int search(char *path, char *data_name, int *found) {
     printf("\nSearch : ");
     scanf("%s", string);
 
+    *data_type = choice;
+
+
     // check file 
     FILE *data = fopen(path, "r");
     char name[10]; 
-
     if (data == NULL) {
         printf("file not found");
     }
 
     else {
 
-        
         while (!feof(data) ) {
             fscanf(data, "%s", name);
 
             if (strcmp(string, name) == 0) {
-                printf("Found name\n");
-                strcpy(data_name, name);
-                *found = 1;
-                fclose(data);
-                return 1;
+                printf("Found name");
+                return name;
             }
+
+            else {
+                printf("Name is not found");
+            }
+
             
         }
-
-        if (*found == 0) {
-            printf("Name is not found\n");
-        }
-        
     }
+
+    fclose(data);
+
+    return 0;
 }

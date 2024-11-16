@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int show_list_product();
 int search();
 
 int main() {
 
-    char *data_path = "data/test.csv";
-    FILE *data = fopen(data_path, "r"); // this is an example
+    char *dataPath = "data/test.csv";
+    FILE *data = fopen(dataPath, "r"); // this is an example
 
     // -- For login system --
     
@@ -24,6 +23,12 @@ int main() {
     switch(choice) {
         case 1:
             printf("Welcome customer!\n");
+            // -- test find a name of product -- 
+            char *data_name;
+
+            search(dataPath, data_name);
+            printf("%s", data_name);
+            
             break;
 
         case 2:
@@ -35,22 +40,8 @@ int main() {
 
     // -- For show list of data --
     
-    show_list_product(data_path);
+    show_list_product(dataPath);
 
-    // -- test find a name of product -- 
-
-    if (choice == 1) {
-        char data_name[10];
-        int found = 0;
-        search(data_path, data_name, &found);
-
-        if (found == 1) {
-            printf("Now select");
-            for (int i = 0; i < strlen(data_name); i++) {
-                printf("%c", data_name[i]);
-            }
-        }
-    }
     
     
     return 0;

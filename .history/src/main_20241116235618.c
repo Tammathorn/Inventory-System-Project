@@ -45,10 +45,7 @@ int main() {
         search(data_path, data_name, &found);
 
         if (found == 1) {
-            printf("Now select");
-            for (int i = 0; i < strlen(data_name); i++) {
-                printf("%c", data_name[i]);
-            }
+            printf("%s", data_name);
         }
     }
     

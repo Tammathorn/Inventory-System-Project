@@ -40,15 +40,12 @@ int main() {
     // -- test find a name of product -- 
 
     if (choice == 1) {
-        char data_name[10];
+        char *data_name;
         int found = 0;
         search(data_path, data_name, &found);
-
-        if (found == 1) {
-            printf("Now select");
-            for (int i = 0; i < strlen(data_name); i++) {
-                printf("%c", data_name[i]);
-            }
+        printf("asd");
+        for (int i = 0; i < strlen(data_name); i++) {
+            printf("%c", data_name[i]);
         }
     }
     
