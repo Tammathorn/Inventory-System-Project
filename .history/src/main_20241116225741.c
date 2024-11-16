@@ -37,7 +37,7 @@ int main() {
 
 
     // -- test run file -- 
-    search(dataPath);
+    search();
 
     return 0;
 
@@ -57,13 +57,12 @@ int show_list_product(char *path) {
     else {
 
         char *name;
-        char *type;
         int quantity;
         float price;
 
         while ( !feof(file) ) {
-            fscanf(file, "%s%s%d%f", name, type, &quantity, &price);
-            printf("%s %s %d %f\n", name, type, quantity, price);
+            fscanf(file, "%s%d%f", name, &quantity, &price);
+            printf("%s %d %f\n", name, quantity, price);
         }
 
         fclose(file);

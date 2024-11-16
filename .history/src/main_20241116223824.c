@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 int show_list_product();
-int search();
 
 int main() {
 
@@ -12,13 +11,8 @@ int main() {
     // -- For login system --
     
     int choice;
-
-    do {
-        printf("What is your role 1 for customer and 2 for owner : ");
-        scanf("%d", &choice);
-    }
-
-    while (choice != 1 && choice != 2);
+    printf("What is your role : ");
+    scanf("%d", &choice);
     
     switch(choice) {
         case 1:
@@ -37,8 +31,8 @@ int main() {
 
 
     // -- test run file -- 
-    search(dataPath);
-
+    system("./search.c");
+    
     return 0;
 
 
@@ -57,13 +51,12 @@ int show_list_product(char *path) {
     else {
 
         char *name;
-        char *type;
         int quantity;
         float price;
 
         while ( !feof(file) ) {
-            fscanf(file, "%s%s%d%f", name, type, &quantity, &price);
-            printf("%s %s %d %f\n", name, type, quantity, price);
+            fscanf(file, "%s%d%f", name, &quantity, &price);
+            printf("%s %d %f\n", name, quantity, price);
         }
 
         fclose(file);

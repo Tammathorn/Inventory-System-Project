@@ -37,7 +37,7 @@ int main() {
 
 
     // -- test run file -- 
-    search(dataPath);
+    search();
 
     return 0;
 
