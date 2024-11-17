@@ -130,7 +130,7 @@ int customer_system(char *data_path) {
         case 1:
             // change data here!
             basket_data_system();
-            FILE *file = fopen("basket_path", "w");
+            FILE *file = fopen("basket-path", "w");
 
             return 0;
 
