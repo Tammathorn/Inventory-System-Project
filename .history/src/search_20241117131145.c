@@ -33,9 +33,6 @@ int search(char *path, char *data_name, char *data_type, int *data_number, float
                 strcmp(data_name, name);
                 strcmp(data_type, type);
 
-                *data_number = number;
-                *data_price = price;
-                
                 fclose(data);
                 return 1;
             }

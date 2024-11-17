@@ -30,12 +30,12 @@ int search(char *path, char *data_name, char *data_type, int *data_number, float
             if (strcmp(string, name) == 0) {
                 printf("Found name\n");
 
-                strcmp(data_name, name);
-                strcmp(data_type, type);
+                strcmp(*data_name, name);
+                strcmp(*data_type, type);
 
                 *data_number = number;
                 *data_price = price;
-                
+
                 fclose(data);
                 return 1;
             }

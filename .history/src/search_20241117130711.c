@@ -35,7 +35,7 @@ int search(char *path, char *data_name, char *data_type, int *data_number, float
 
                 *data_number = number;
                 *data_price = price;
-                
+
                 fclose(data);
                 return 1;
             }

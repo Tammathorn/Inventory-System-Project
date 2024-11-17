@@ -73,7 +73,7 @@ int show_list_product(char *path) {
 
         while ( !feof(file) ) {
             fscanf(file, "%9s %9s %d %f", name, type, &quantity, &price);
-            printf("%9s %9s %d %f\n", name, type, quantity, price);
+            printf("%9s %9s %d %f", name, type, quantity, price);
         }
 
         fclose(file);

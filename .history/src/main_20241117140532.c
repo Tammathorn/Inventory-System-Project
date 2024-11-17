@@ -72,8 +72,8 @@ int show_list_product(char *path) {
         float price;
 
         while ( !feof(file) ) {
-            fscanf(file, "%9s %9s %d %f", name, type, &quantity, &price);
-            printf("%9s %9s %d %f\n", name, type, quantity, price);
+            fscanf(file, "%10s%10s%d%f", name, type, &quantity, &price);
+            printf("%s %s %d %f", name, type, quantity, price);
         }
 
         fclose(file);
@@ -161,19 +161,22 @@ int basket_data_system() {
     FILE *basket = fopen(basket_path, "r");
     FILE *data = fopen(data_path, "r+");
 
-    char name1[10];
-    char name2[10];
-    char type[10];
-    float price;
-    int number1;
-    int number2;
+     FILE *basket = fopen("basket.csv", "r");
+    FILE *data = fopen("data.csv", "r+");
 
-    while ( !feof(basket) ) {
-        fscanf(basket, "%10s %10s %d %f", name1, type, &number1, &price);
-        while (!feof(data)) {
-            fscanf(data, "%10s %10s %d %f", name2, type, &number2, &price);
-            if (strcmp(name1, name2) == 0) {
-                fprintf(data, "%10s %10s %d %f\n", name1, type, number2 - number1, price);
+    char name1[10], name2[10];
+    char type1[10], type2[10];
+    float price1, price2;
+    int number1, number2;
+
+    while (fscanf(basket, "%9s %9s %d %f", name1, type1, &number1, &price1) == 4) {
+        rewind(data);
+
+        while (fscanf(data, "%9s %9s %d %f", name2, type2, &number2, &price2) == 4) {
+            if (strcmp(name1, name2) == 0 && strcmp(type1, type2) == 0) {
+                fseek(data, -sizeof(int), SEEK_CUR);
+                number2 -= number1;
+                fwrite(&number2, sizeof(int), 1, data);
                 break;
             }
         }

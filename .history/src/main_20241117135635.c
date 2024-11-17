@@ -72,8 +72,8 @@ int show_list_product(char *path) {
         float price;
 
         while ( !feof(file) ) {
-            fscanf(file, "%9s %9s %d %f", name, type, &quantity, &price);
-            printf("%9s %9s %d %f\n", name, type, quantity, price);
+            fscanf(file, "%10s%10s%d%f", name, type, &quantity, &price);
+            printf("%s %s %d %f\n", name, type, quantity, price);
         }
 
         fclose(file);
@@ -170,10 +170,13 @@ int basket_data_system() {
 
     while ( !feof(basket) ) {
         fscanf(basket, "%10s %10s %d %f", name1, type, &number1, &price);
+        rewind(data);
         while (!feof(data)) {
-            fscanf(data, "%10s %10s %d %f", name2, type, &number2, &price);
+            fscanf(data, "%10s %10s %d", name2, type, &number2);
+
             if (strcmp(name1, name2) == 0) {
-                fprintf(data, "%10s %10s %d %f\n", name1, type, number2 - number1, price);
+                printf("Found");
+                fprintf(data, "%10s %10s %d %f", name1, type, number2 - number1, price);
                 break;
             }
         }
@@ -181,8 +184,6 @@ int basket_data_system() {
 
     fclose(basket);
     fclose(data);
-
-    return 0;
 
     
 }

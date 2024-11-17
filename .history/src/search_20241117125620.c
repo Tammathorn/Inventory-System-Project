@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int search(char *path, char *data_name, char *data_type, int *data_number, float *data_price) {
+int search(char *path, char *data_name, char *data_type, int *found) {
     
     //  -- input and check if it has or not -- 
 
@@ -25,28 +25,31 @@ int search(char *path, char *data_name, char *data_type, int *data_number, float
 
     else {
 
+        
         while (!feof(data) ) {
             fscanf(data, "%10s%10s%d%f", name, type, &number, &price);
-            if (strcmp(string, name) == 0) {
+            printf("%c", name[0]);
+            if (strcmp(string, data_name) == 0) {
                 printf("Found name\n");
+                *found = 1;
 
                 strcmp(data_name, name);
                 strcmp(data_type, type);
 
-                *data_number = number;
-                *data_price = price;
-                
                 fclose(data);
-                return 1;
+                return 0;
             }
 
             else if (strcmp(string, "x") == 0) {
+                *found = 2;
                 return 0;
             }
             
         }
 
-        printf("Name is not found\n");
+        if (*found == 0) {
+            printf("Name is not found\n");
+        }
         
     }
 

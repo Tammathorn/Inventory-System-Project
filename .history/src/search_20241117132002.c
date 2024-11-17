@@ -31,6 +31,7 @@ int search(char *path, char *data_name, char *data_type, int *data_number, float
                 printf("Found name\n");
 
                 strcmp(data_name, name);
+                printf("%c %c", data_name[0], name);
                 strcmp(data_type, type);
 
                 *data_number = number;

@@ -7,7 +7,6 @@ int search();
 int login_system();
 int customer_system();
 int basket_system(char *basket_path, char *name, char *type, int number, float price);
-int basket_data_system();
 
 // path to data
 char *data_path = "data/test.csv";
@@ -72,8 +71,8 @@ int show_list_product(char *path) {
         float price;
 
         while ( !feof(file) ) {
-            fscanf(file, "%9s %9s %d %f", name, type, &quantity, &price);
-            printf("%9s %9s %d %f\n", name, type, quantity, price);
+            fscanf(file, "%10s%10s%d%f", name, type, &quantity, &price);
+            printf("%s %s %d %f\n", name, type, quantity, price);
         }
 
         fclose(file);
@@ -109,6 +108,8 @@ int customer_system(char *data_path) {
             break;
         }
 
+
+
         int number;
         do {
             
@@ -120,27 +121,9 @@ int customer_system(char *data_path) {
         
 
         basket_system(basket_path, data_name, data_type, data_number, data_price);
-        
-        printf("Do you want to purchase : ");
-        
-        int purchase;
-        scanf("%d", &purchase);
-        switch (purchase)
-        {
-        case 1:
-            // change data here!
-
-            basket_data_system();
-
-            return 0;
-
-        case 0:
-            break;
-        }
-
     }
 
-    while(strcmp(data_name, "x") != 0);
+    while(1);
     return 0;       
 }
 
@@ -151,38 +134,7 @@ int basket_system(char *basket_path, char *name, char *type, int number, float p
     fprintf(basket, "%s %s %d %f\n", name, type, number, price);
 
     printf("Save\n");
-
     fclose(basket);
 
     return 0;
-}
-
-int basket_data_system() {
-    FILE *basket = fopen(basket_path, "r");
-    FILE *data = fopen(data_path, "r+");
-
-    char name1[10];
-    char name2[10];
-    char type[10];
-    float price;
-    int number1;
-    int number2;
-
-    while ( !feof(basket) ) {
-        fscanf(basket, "%10s %10s %d %f", name1, type, &number1, &price);
-        while (!feof(data)) {
-            fscanf(data, "%10s %10s %d %f", name2, type, &number2, &price);
-            if (strcmp(name1, name2) == 0) {
-                fprintf(data, "%10s %10s %d %f\n", name1, type, number2 - number1, price);
-                break;
-            }
-        }
-    }
-
-    fclose(basket);
-    fclose(data);
-
-    return 0;
-
-    
 }

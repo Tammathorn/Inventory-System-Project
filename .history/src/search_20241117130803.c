@@ -29,13 +29,13 @@ int search(char *path, char *data_name, char *data_type, int *data_number, float
             fscanf(data, "%10s%10s%d%f", name, type, &number, &price);
             if (strcmp(string, name) == 0) {
                 printf("Found name\n");
-
+                printf("name");
                 strcmp(data_name, name);
                 strcmp(data_type, type);
 
                 *data_number = number;
                 *data_price = price;
-                
+
                 fclose(data);
                 return 1;
             }
