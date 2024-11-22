@@ -10,6 +10,9 @@ int customer_system();
 int basket_system(char *basket_path, char *name, char *type, int number, float price);
 int basket_data_system();
 int create_coupon();
+int get_discount_data(int *discount_type, float *discount_price, int *discount_percent)
+int get_product_data(char *product_name, char *product_type)
+int save_coupon_data(char *coupon_code, char *product_name, char *product_type, float discount_price, int discount_percent, char *expiry_date) {
 
 // path to data
 char *data_path = "data/test.csv";
@@ -23,8 +26,9 @@ int main() {
 
     login_system(data_path);
     // ---------------
-
+    
     return 0;
+    
 }
 
 int login_system(char *data_path) {
@@ -190,79 +194,96 @@ int basket_data_system() {
     
 }
 
-int create_coupon() {
-    FILE *file = fopen(coupon_path, "a");
-
-    if (file == NULL) {
-        perror("Error opening file"); // Prints detailed error
-        return -1;
-    }
-
-    char coupon_code[20];
-    char product_name[20];
-    char product_type[20]; 
-    float discount_price = 0.0;  
-    int discount_percent = 0;  
-    char expiry_date[11];  
-    int discount_type;
-
+int get_discount_data(int *discount_type, float *discount_price, int *discount_percent) {
     printf("Select discount type (1 for Price, 2 for Percentage): ");
-    scanf("%d", &discount_type);
-    
-    // Choose discount type
-    if (discount_type == 1) {
-        // Discount as a fixed price
-        printf("Enter discount price (ex. 10.50): ");
-        scanf("%f", &discount_price);
-    } else if (discount_type == 2) {
-        // Discount as a percentage
+    scanf("%d", discount_type);
+
+    if (*discount_type == 1) {
+        printf("Enter discount price (e.g., 10.50): ");
+        scanf("%f", discount_price);
+        *discount_percent = 0;  // Set percent to 0 for price discount
+    } else if (*discount_type == 2) {
         printf("Enter discount percentage (0-100): ");
-        scanf("%d", &discount_percent);
+        scanf("%d", discount_percent);
+        *discount_price = 0.0;  // Set price to 0 for percentage discount
     } else {
         printf("Invalid discount type.\n");
-        fclose(file);
         return -1;
     }
 
+    return 0;
+}
+
+// Function to handle product or type choice
+int get_product_data(char *product_name, char *product_type) {
     int choice;
-    printf("Would you like to apply the coupon to a 1.specific product name or 2.product type?\n");
-    printf("1. Product Name\n2. Product Type\n");
+    printf("Apply to 1. Product Name\n2. Product Type\n");
     scanf("%d", &choice);
 
-    //Choose apply to specific product or name
     if (choice == 1) {
-        //Apply by product_name
-        printf("Enter product name this coupon applies to: ");
+        printf("Enter product name coupon: ");
         scanf("%19s", product_name);
-        strcpy(product_type, ""); 
+        strcpy(product_type, "");  
     } else if (choice == 2) {
-        //apply by product_type
-        printf("Enter product type this coupon applies to: ");
+        printf("Enter product type for coupon: ");
         scanf("%19s", product_type);
-        strcpy(product_name, "");
+        strcpy(product_name, "");  
     } else {
         printf("Invalid choice.\n");
-        fclose(file);
         return -1;
     }
 
+    return 0;
+}
+
+int create_coupon() {
+    char coupon_code[20], product_name[20] = "", product_type[20] = "", expiry_date[11];
+    float discount_price = 0.0;
+    int discount_percent = 0;
+    int discount_type;
+
+    // Get discount data (type, price, percentage)
+    if (get_discount_data(&discount_type, &discount_price, &discount_percent) == -1) {
+        return -1;
+    }
+
+    // Get product name or type
+    if (get_product_data(product_name, product_type) == -1) {
+        return -1;
+    }
+
+    //Expiry date
     printf("Enter coupon code: ");
     scanf("%19s", coupon_code);
-
     printf("Enter expiry date (YYYY-MM-DD): ");
     scanf("%10s", expiry_date);
 
+    // Save coupon data to file
+    if (save_coupon_data(coupon_code, product_name, product_type, discount_price, discount_percent, expiry_date) == 0) {
+        printf("Successfully created coupon.\n");
+    } else {
+        printf("Failed to create coupon.\n");
+    }
+
+    return 0;
+}
+
+// Save coupon to data
+int save_coupon_data(char *coupon_code, char *product_name, char *product_type, float discount_price, int discount_percent, char *expiry_date) {
+    FILE *file = fopen(coupon_path, "a");
+
+    if (file == NULL) {
+        perror("Error opening file");
+        return -1;
+    }
+
+    // Write coupon data to file
     if (strlen(product_name) > 0) {
         fprintf(file, "%s,%s,%.2f,%d,%s,%s\n", coupon_code, product_name, discount_price, discount_percent, expiry_date, ""); 
     } else {
         fprintf(file, "%s,%s,%.2f,%d,%s,%s\n", coupon_code, "", discount_price, discount_percent, expiry_date, product_type); 
     }
 
-    fclose(file); // Don't forget to close the file!
-    return 0;
-}
-
-int main() {
-    create_coupon();
+    fclose(file);
     return 0;
 }
