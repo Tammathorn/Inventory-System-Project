@@ -12,7 +12,7 @@ int basket_data_system();
 int create_coupon();
 int get_discount_data(int *discount_type, float *discount_price, int *discount_percent)
 int get_product_data(char *product_name, char *product_type)
-int save_coupon_data(char *coupon_code, char *product_name, char *product_type, float discount_price, int discount_percent, char *expiry_date) {
+int save_coupon_data(char *coupon_code, char *product_name, char *product_type, float discount_price, int discount_percent, char *expiry_date) 
 
 // path to data
 char *data_path = "data/test.csv";
