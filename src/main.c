@@ -201,11 +201,11 @@ int get_discount_data(int *discount_type, float *discount_price, int *discount_p
     if (*discount_type == 1) {
         printf("Enter discount price (e.g., 10.50): ");
         scanf("%f", discount_price);
-        *discount_percent = 0;  // Set percent to 0 for price discount
+        *discount_percent = 0; 
     } else if (*discount_type == 2) {
         printf("Enter discount percentage (0-100): ");
         scanf("%d", discount_percent);
-        *discount_price = 0.0;  // Set price to 0 for percentage discount
+        *discount_price = 0.0;  
     } else {
         printf("Invalid discount type.\n");
         return -1;
@@ -214,7 +214,7 @@ int get_discount_data(int *discount_type, float *discount_price, int *discount_p
     return 0;
 }
 
-// Function to handle product or type choice
+// Choose to apply by product_name or product_type
 int get_product_data(char *product_name, char *product_type) {
     int choice;
     printf("Apply to 1. Product Name\n2. Product Type\n");
