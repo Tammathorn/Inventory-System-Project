@@ -1,6 +1,7 @@
-#include <stdio.h>
+\#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 int show_list_product();
 int search();
@@ -8,10 +9,12 @@ int login_system();
 int customer_system();
 int basket_system(char *basket_path, char *name, char *type, int number, float price);
 int basket_data_system();
+int create_coupon();
 
 // path to data
 char *data_path = "data/test.csv";
 char *basket_path = "data/basket.csv";
+char *coupon_path = "data/coupons.csv";
 
 int main() {
     
@@ -185,4 +188,81 @@ int basket_data_system() {
     return 0;
 
     
+}
+
+int create_coupon() {
+    FILE *file = fopen(coupon_path, "a");
+
+    if (file == NULL) {
+        perror("Error opening file"); // Prints detailed error
+        return -1;
+    }
+
+    char coupon_code[20];
+    char product_name[20];
+    char product_type[20]; 
+    float discount_price = 0.0;  
+    int discount_percent = 0;  
+    char expiry_date[11];  
+    int discount_type;
+
+    printf("Select discount type (1 for Price, 2 for Percentage): ");
+    scanf("%d", &discount_type);
+    
+    // Choose discount type
+    if (discount_type == 1) {
+        // Discount as a fixed price
+        printf("Enter discount price (ex. 10.50): ");
+        scanf("%f", &discount_price);
+    } else if (discount_type == 2) {
+        // Discount as a percentage
+        printf("Enter discount percentage (0-100): ");
+        scanf("%d", &discount_percent);
+    } else {
+        printf("Invalid discount type.\n");
+        fclose(file);
+        return -1;
+    }
+
+    int choice;
+    printf("Would you like to apply the coupon to a 1.specific product name or 2.product type?\n");
+    printf("1. Product Name\n2. Product Type\n");
+    scanf("%d", &choice);
+
+    //Choose apply to specific product or name
+    if (choice == 1) {
+        //Apply by product_name
+        printf("Enter product name this coupon applies to: ");
+        scanf("%19s", product_name);
+        strcpy(product_type, ""); 
+    } else if (choice == 2) {
+        //apply by product_type
+        printf("Enter product type this coupon applies to: ");
+        scanf("%19s", product_type);
+        strcpy(product_name, "");
+    } else {
+        printf("Invalid choice.\n");
+        fclose(file);
+        return -1;
+    }
+
+    printf("Enter coupon code: ");
+    scanf("%19s", coupon_code);
+
+    printf("Enter expiry date (YYYY-MM-DD): ");
+    scanf("%10s", expiry_date);
+
+    if (strlen(product_name) > 0) {
+        fprintf(file, "%s,%s,%.2f,%d,%s,%s\n", coupon_code, product_name, discount_price, discount_percent, expiry_date, ""); 
+    } else {
+        fprintf(file, "%s,%s,%.2f,%d,%s,%s\n", coupon_code, "", discount_price, discount_percent, expiry_date, product_type); 
+    }
+
+    fclose(file); // Don't forget to close the file!
+    return 0;
+}
+
+int main() {
+    create_coupon();
+    return 0;
 }
