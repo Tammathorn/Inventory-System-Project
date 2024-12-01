@@ -68,16 +68,16 @@ int customer_system(char *data_path) {
             show_list_product(basket_path);
 
             char confirm[7];
-            char search_name[max_char];
+            int lineIndex;
             
             printf("Press confirm to confirm : ");
             scanf("%s", confirm);
             
             do {
-                printf("Which product do you want to change : ");
-                scanf("%s", search_name);
+                printf("Which line do you want to change : ");
+                scanf("%d", &lineIndex);
 
-                editFile(basket_path, search_name);
+                editFile(basket_path, lineIndex);
                 
                 printf("Press confirm to confirm : ");
                 scanf("%s", confirm);

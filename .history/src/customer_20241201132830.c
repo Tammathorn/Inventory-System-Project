@@ -2,6 +2,8 @@
 #include <string.h>
 #include "inventory.h"
 
+
+
 int customer_system();
 int basket_system(char *name, char *type, int number, float price);
 int basket_data_system();
@@ -74,7 +76,7 @@ int customer_system(char *data_path) {
             scanf("%s", confirm);
             
             do {
-                printf("Which product do you want to change : ");
+                printf("Which line do you want to change : ");
                 scanf("%s", search_name);
 
                 editFile(basket_path, search_name);

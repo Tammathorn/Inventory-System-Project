@@ -36,6 +36,7 @@ int customer_system(char *data_path) {
 
         while (found == 0);
 
+        printf("pass");
         // check amount of product in the basket
         int amount_basket = check_basket(string);
         int amount_warehouse = check_warehouse(string);
@@ -68,18 +69,18 @@ int customer_system(char *data_path) {
             show_list_product(basket_path);
 
             char confirm[7];
-            char search_name[max_char];
+            int lineIndex;
             
             printf("Press confirm to confirm : ");
             scanf("%s", confirm);
             
             do {
-                printf("Which product do you want to change : ");
-                scanf("%s", search_name);
+                printf("Which line do you want to change : ");
+                scanf("%d", &lineIndex);
 
-                editFile(basket_path, search_name);
+                editFile(basket_path, lineIndex);
                 
-                printf("Press confirm to confirm : ");
+                printf("Press confirm to confirm");
                 scanf("%s", confirm);
                 
             }
@@ -150,7 +151,7 @@ int check_basket(char *name_to_find) {
     int quantity;
     float price;
     int found = 0;
-    
+    fclose(file);
 
     while ( !feof(file) ) {
         fscanf(file, "%s %10s %d %f", name, type, &quantity, &price);
@@ -164,7 +165,7 @@ int check_basket(char *name_to_find) {
     if (found == 0) {
         return 0;
     } 
-
+    
     fclose(file);
 
 }

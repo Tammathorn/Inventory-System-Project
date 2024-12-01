@@ -4,6 +4,5 @@
 extern char *data_path;
 extern char *basket_path;
 
-#define max_char 10
-#define max_product 100
+#define max_char 50
 #endif

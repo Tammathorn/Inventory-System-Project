@@ -74,7 +74,7 @@ int customer_system(char *data_path) {
             scanf("%s", confirm);
             
             do {
-                printf("Which product do you want to change : ");
+                printf("Which line do you want to change : ");
                 scanf("%s", search_name);
 
                 editFile(basket_path, search_name);
