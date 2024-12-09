@@ -64,7 +64,7 @@ int customer_system() {
                 scanf("%d", &number);
 
                 if (number < 0) {
-                    printf("Number is not valid\n");
+                    printf("Number is not valid");
                 }
             } 
 

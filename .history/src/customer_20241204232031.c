@@ -62,10 +62,6 @@ int customer_system() {
             do {
                 printf("Enter the number of purchase : ");
                 scanf("%d", &number);
-
-                if (number < 0) {
-                    printf("Number is not valid\n");
-                }
             } 
 
             while (number < 0);
