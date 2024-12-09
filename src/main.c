@@ -54,7 +54,19 @@ int login_system() {
             show_list_product(data_path);
 
             // CRUD or coupon here! 
-            
+
+            // Run coupon management operations
+            printf("\nManaging Coupons...\n");
+
+            // Example: 
+            // 1. Create a coupon
+            run_coupons(coupon_path, 1, NULL);
+
+            // 2. View all coupons
+            run_coupons(coupon_path, 2, NULL);
+
+            // 3. Delete a specific coupon
+            run_coupons(coupon_path, 3, "SPECIAL10");
 
             break;
     }
