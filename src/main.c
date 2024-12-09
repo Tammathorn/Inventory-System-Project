@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "inventory.h"
+#include "coupons.h"
 
 int login_system();
 
