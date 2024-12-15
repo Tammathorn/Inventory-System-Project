@@ -69,7 +69,7 @@ int filter_product() {
 
     if (strcmp(filter_type, "type") == 0) {
         filter_choice = 1;
-        printf("Enter your product type: ");
+        printf("Enter product type you want to filter : ");
         scanf("%s", string);
     }
 
