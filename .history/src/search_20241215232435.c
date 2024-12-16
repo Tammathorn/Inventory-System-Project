@@ -54,22 +54,19 @@ int search(char *string, char *path, char *data_name, char *data_type, int *data
 
 int filter_product() {
 
-    printf("Please insert filter\n");
-    printf("Insert \'type\' for type of the product\n");
-    printf("Inset \'price\' for filter minimum and maximum price of the product\n");
-    printf("Inset \'quantity\' for filter minimum and maximum quantity of the stock\n");
+    printf("Please insert filter\n Insert type for type of the product\n  Insert price for filter minimum price and maximum price of the product\n, Insert quantity for filter minimum and maximum amount of product left in the stock\n");
     printf("None for no filter\n");
     
     char filter_type[10];
 
-    printf("Enter product type you want to filter : ");
+    printf("Filter type : ");
     scanf("%s", filter_type);
 
     int filter_choice = 0;
 
     if (strcmp(filter_type, "type") == 0) {
         filter_choice = 1;
-        printf("Enter your product type: ");
+        printf("Enter your type : ");
         scanf("%s", string);
     }
 
@@ -77,20 +74,20 @@ int filter_product() {
 
         filter_choice = 2;
         
-        printf("Enter minimum price : ");
+        printf("Minimum price : ");
         scanf("%f", &min_price);
 
-        printf("Enter maximum price : ");
+        printf("Maximum price : ");
         scanf("%f", &max_price);
     }
 
     else if (strcmp(filter_type, "amount") == 0) {
         filter_choice = 3;
 
-        printf("Enter minimum amount in the stocks : ");
+        printf("Minimum amount : ");
         scanf("%d", &min_amount);
 
-        printf("Enter maximum amount in the stocks : ");
+        printf("Maximum amount : ");
         scanf("%d", &max_amount);
     }   
 
@@ -101,9 +98,9 @@ int show_list_product(char *path) {
 
     int filter_choice = filter_product(); 
 
-    FILE *inventory = fopen(path, "r");
+    FILE *file = fopen(path, "r");
     
-    if ( (inventory == NULL) ) {
+    if ( (file == NULL) ) {
         printf("File not found");
     }
 
@@ -114,9 +111,9 @@ int show_list_product(char *path) {
         int quantity;
         float price;
 
-        while (!feof(inventory)) {
+        while (!feof(file)) {
             
-            fscanf(inventory, "%10s %10s %d %f\n", name, type, &quantity, &price);
+            fscanf(file, "%10s %10s %d %f\n", name, type, &quantity, &price);
             switch (filter_choice)
             {
             case 1:
@@ -144,7 +141,7 @@ int show_list_product(char *path) {
             }
         }
 
-        fclose(inventory);
+        fclose(file);
         return 0;
     }
 }

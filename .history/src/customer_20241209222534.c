@@ -88,7 +88,7 @@ int customer_system() {
         show_list_product_struct(basket, basket_length);
 
         // purchase or not
-        printf("Do you want to purchase (Enter \' Yes \' to confirm your order) : ");
+        printf("Do you want to purchase : ");
         char purchase[5];
         scanf("%s", purchase);
         
@@ -103,7 +103,7 @@ int customer_system() {
             // <---- Apply coupon here ---->
 
             
-            printf("Please enter \'confirm\' to confirm your order : ");
+            printf("Press confirm to confirm : ");
             scanf("%s", confirm);
 
             while (strcmp(confirm, "confirm") != 0) {
@@ -119,7 +119,7 @@ int customer_system() {
             basket_data_system();
             save_system(basket, basket_length, basket_path);
             save_system(data, data_length, data_path);
-            printf("Purchase successfully");
+            printf("Purchase succesfully");
             break;
         }
 

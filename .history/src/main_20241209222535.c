@@ -3,10 +3,9 @@
 #include <string.h>
 #include <time.h>
 #include "inventory.h"
-#include "coupons.h"
 
 int login_system();
-//แก้ data test basket
+
 // path to data
 char *data_path = "data/test.csv";
 char *basket_path = "data/basket.csv";
@@ -53,6 +52,7 @@ int login_system() {
             show_list_product(data_path);
 
             // CRUD or coupon here! 
+            
 
             break;
     }
