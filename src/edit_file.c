@@ -4,7 +4,7 @@
 
 int editFile(char *fileName, char *string_compare) {
 
-    struct file_data basket[max_product];
+    struct file_data Cart[max_product];
 
     FILE *data = fopen(fileName, "r");
 
@@ -17,9 +17,9 @@ int editFile(char *fileName, char *string_compare) {
 
     while (fscanf(data, "%s %s %d %f", name, type, &quantity, &price) != EOF) {
         
-        strcpy(basket[index].name, name);
-        strcpy(basket[index].type, type);
-        basket[index].price = price;
+        strcpy(Cart[index].name, name);
+        strcpy(Cart[index].type, type);
+        Cart[index].price = price;
 
         printf("current index : %d\n", index);
 
@@ -31,7 +31,7 @@ int editFile(char *fileName, char *string_compare) {
                 printf("Change the quantity from %d :  to be ", quantity);
                 scanf("%d", &new_quan);
 
-                basket[index].quantity = new_quan;
+                Cart[index].quantity = new_quan;
             }
             
             while (new_quan < 0);
@@ -39,7 +39,7 @@ int editFile(char *fileName, char *string_compare) {
         }
 
         else {
-            basket[index].quantity = quantity;
+            Cart[index].quantity = quantity;
         }
 
         index++;
@@ -52,7 +52,7 @@ int editFile(char *fileName, char *string_compare) {
 
     for (int i = 0; i < index; i++) {
     
-        fprintf(data, "%10s %10s %d %f\n", basket[i].name, basket[i].type, basket[i].quantity, basket[i].price);
+        fprintf(data, "%10s %10s %d %f\n", Cart[i].name, Cart[i].type, Cart[i].quantity, Cart[i].price);
     }
     
     return 0;

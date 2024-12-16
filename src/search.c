@@ -98,9 +98,9 @@ int show_list_product(char *path) {
 
     int filter_choice = filter_product(); 
 
-    FILE *file = fopen(path, "r");
+    FILE *inventory = fopen(path, "r");
     
-    if ( (file == NULL) ) {
+    if ( (inventory == NULL) ) {
         printf("File not found");
     }
 
@@ -111,9 +111,9 @@ int show_list_product(char *path) {
         int quantity;
         float price;
 
-        while (!feof(file)) {
+        while (!feof(inventory)) {
             
-            fscanf(file, "%10s %10s %d %f\n", name, type, &quantity, &price);
+            fscanf(inventory, "%10s %10s %d %f\n", name, type, &quantity, &price);
             switch (filter_choice)
             {
             case 1:
@@ -141,7 +141,7 @@ int show_list_product(char *path) {
             }
         }
 
-        fclose(file);
+        fclose(inventory);
         return 0;
     }
 }
