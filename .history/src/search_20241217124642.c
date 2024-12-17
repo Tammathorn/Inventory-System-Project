@@ -113,14 +113,14 @@ int show_list_product(char *path) {
             fscanf(inventory, "%10s %10s %d %f\n", name, type, &quantity, &price);
             switch (filter_choice)
             {
-            case 0:
+            case 1:
                 if (strcmp(string, type) == 0) {
                     printf("%9s %9s %d %f\n", name, type, quantity, price);
                 }
 
                 break;
             
-            case 1:
+            case 2:
                 
                 if (price >= min_price && price <= max_price) {
                     printf("%9s %9s %d %f\n", name, type, quantity, price);
@@ -128,7 +128,7 @@ int show_list_product(char *path) {
 
                 break;
 
-            case 2:
+            case 3:
             if (quantity >= min_amount && quantity <= max_amount) {
                     printf("%9s %9s %d %f\n", name, type, quantity, price);
                 }
