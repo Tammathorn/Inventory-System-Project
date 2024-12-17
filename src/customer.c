@@ -6,6 +6,8 @@
 int basket_length = 0;
 int data_length = 0;
 
+char *sold_path = "data/sold.csv";
+
 int showInstruction();
 int customer_system();
 int basket_system(char *name, char *type, int number, float price, int *index);
@@ -164,7 +166,6 @@ int customer_system() {
                     printf("\n");
 
                     basket_data_system();
-                    save_system(basket, basket_length, basket_path);
                     save_system(data, data_length, data_path);
                     printf("--- Purchase successfully ---");
 
@@ -174,8 +175,10 @@ int customer_system() {
 
             // Exit
             case 7:
-                //save_system(basket, basket_length, basket_path);
                 printf("--------  Exit the program  --------");
+                save_system(basket, basket_length, basket_path);
+                printf("%d", basket_length);
+                save_system(basket, basket_length, sold_path);
                 
                 return 0;
 
@@ -252,13 +255,13 @@ int basket_system(char *name, char *type, int number, float price, int *index) {
 }
 
 // append data from struct to csv here
-void save_system(struct file_data *data, int length, char *path) {
+void save_system(struct file_data *data_struct, int length, char *path) {
     
     FILE *file = fopen(path, "w");
 
     for (int i = 0; i < length; i++) {
-        printf("%s %s %d %.2f\n", data[i].name, data[i].type, data[i].quantity, data[i].price);
-        fprintf(file, "%s %s %d %.2f\n", data[i].name, data[i].type, data[i].quantity, data[i].price);
+        printf("%s %s %d %.2f\n", data_struct[i].name, data_struct[i].type, data_struct[i].quantity, data_struct[i].price);
+        fprintf(file, "%s %s %d %.2f\n", data_struct[i].name, data_struct[i].type, data_struct[i].quantity, data_struct[i].price);
     }
 
     fclose(file);
@@ -276,7 +279,6 @@ int basket_data_system() {
             if (strcmp(data[i].name, basket[j].name) == 0) {
 
                 data[i].quantity -= basket[j].quantity;
-                printf("Change %d\n", data[i].quantity);
             }
         }
     }
