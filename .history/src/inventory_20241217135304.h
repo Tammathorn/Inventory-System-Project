@@ -34,9 +34,9 @@ void edit_product();
 void delete_product();
 void save_to_file(const char *file_path);
 void load_data_from_file(const char *file_path);
+void show_list_product(const char *file_path);
 
 // Function prototypes from inventory2.h
-int show_list_product();
 int customer_system();
 int editFile();
 int search();

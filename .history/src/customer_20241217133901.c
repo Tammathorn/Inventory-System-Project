@@ -74,7 +74,7 @@ int customer_system() {
             current_number_order = basket_system(data_name, data_type, number, data_price, &current_index);  
             printf("Name : %s Quantity : %d", data_name, number);
             printf(" Add to the basket\n");
-            
+          
             // when it is not found in the inventory
             if (amount_warehouse == 0) {
                 break;

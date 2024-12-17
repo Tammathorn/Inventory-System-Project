@@ -139,8 +139,4 @@ void load_data_from_file(const char *file_path) {
     printf("Data loaded successfully!\n");
 }
 
-// Function to load and display all products from a CSV file
-void show_list_product(const char *file_path) {
-    load_data_from_file(file_path); // Load data from the file
-    view_products();                // Display the products
-}
+

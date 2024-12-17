@@ -7,6 +7,7 @@
 
 // Function prototypes
 void login_system();
+void show_list_product(const char *file_path);
 
 // Path to data
 char *data_path = "data/test.csv";
