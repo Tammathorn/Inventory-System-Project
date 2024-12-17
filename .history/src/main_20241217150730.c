@@ -69,7 +69,7 @@ void login_system() {
                         break;
                     case 6:
                         clean_expired_coupons();
-                        manage_coupons();
+                        run_coupons(const char *data_path, int operation, const char *coupon_code);
                         break;
                     case 7:
                         printf("Returning to main menu.\n");

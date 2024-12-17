@@ -12,21 +12,20 @@ typedef struct {
 } coupon_t;
 
 // Global variable for coupon file path
-extern char *coupon_path;
+extern char coupon_path;
 
 // Function declarations
-
 // Create and Save
-int get_discount_data(int *discount_type, float *discount_price, int *discount_percent);
-int get_product_data(char *product_name, char *category);
-int save_coupon_data(char *coupon_code, char *product_name, char *category, float discount_price, int discount_percent, char *expiry_date);
+int get_discount_data(int discount_type, float discount_price, int discount_percent);
+int get_product_data(char product_name, char category);
+int save_coupon_data(char coupon_code, char product_name, char category, float discount_price, int discount_percent, char expiry_date);
 int create_coupon();
-int validate_date(const char *date);
+int validate_date(const char date);
 
 // Display and Manage
-int load_coupons(coupon_t coupons, int *coupon_count, const char *file_path);
+int load_coupons(coupon_t coupons, int coupon_count, const char file_path);
 void display_coupons();
-int delete_coupon(const char *coupon_code);
+int delete_coupon(const char coupon_code);
 
 
 // Auto clean up expired

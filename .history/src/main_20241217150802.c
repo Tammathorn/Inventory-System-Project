@@ -68,10 +68,6 @@ void login_system() {
                         save_to_file(file_path);
                         break;
                     case 6:
-                        clean_expired_coupons();
-                        manage_coupons();
-                        break;
-                    case 7:
                         printf("Returning to main menu.\n");
                         return ; // Return to main menu after CRUD operations
                     default:

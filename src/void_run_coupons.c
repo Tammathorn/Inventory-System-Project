@@ -1,45 +1,88 @@
+#include "coupons.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "coupons.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 
-// Coupon file path
 char *coupon_path = "data/coupons.csv";
 
-// Function to manage coupons
-void run_coupons(const char *data_path, int operation, const char *coupon_code) {
-    // Clean expired coupons
-    printf("Deleting expired coupons...\n");
+// Function to automatically clean up expired coupons
+void auto_cleanup_expired_coupon() {
+    printf("Cleaning up expired coupons...\n");
     int expired_count = clean_expired_coupons();
-    if (expired_count > 0) {
-        printf("%d expired coupons were removed.\n", expired_count);
-    } else {
-        printf("No expired coupons found.\n");
-    }
+    printf("Auto cleanup complete. Expired coupons removed: %d\n", expired_count);
+}
 
-    // Perform the requested operation
-    switch (operation) {
-        case 1: // Create a coupon
-            if (create_coupon() == 0) {
-                printf("Coupon created successfully.\n");
-            } else {
-                printf("Failed to create coupon.\n");
+void manage_coupons() {
+    int running = 1;
+    coupon_t coupons[100];       // Declare coupons array once
+    int coupon_count = 0;        // Variable to track loaded coupons
+
+    while (running) {
+        printf("\n===== Coupon Management System =====\n");
+        printf("1. Create a Coupon\n");
+        printf("2. View All Coupons\n");
+        printf("3. Delete a Coupon\n");
+        printf("4. Back\n");
+        printf("Enter your choice: ");
+
+        int choice;
+        if (scanf("%d", &choice) != 1) {
+            printf("Invalid input. Exiting program.\n");
+            return;
+        }
+
+        switch (choice) {
+            case 1: {
+                // Create a new coupon
+                if (create_coupon() == 0) {
+                    printf("Coupon created successfully.\n");
+                } else {
+                    printf("Failed to create coupon.\n");
+                }
+                break;
             }
-            break;
-        case 2: // View all coupons
-            display_coupons();
-            break;
-        case 3: // Delete a specific coupon
-            if (coupon_code != NULL && strlen(coupon_code) > 0) {
-                delete_coupon(coupon_code);
-            } else {
-                printf("Invalid coupon code provided for deletion.\n");
+            case 2: {
+                // View all coupons
+                if (load_coupons(coupons, &coupon_count, coupon_path) == 0) {
+                    display_coupons(coupons, coupon_count);
+                } else {
+                    printf("Failed to load coupons.\n");
+                }
+                break;
             }
-            break;
-        default: // Invalid operation
-            printf("Invalid operation. Exiting.\n");
-            break;
+            case 3: {
+                // Load coupons before deleting
+                if (load_coupons(coupons, &coupon_count, coupon_path) == 0) {
+                    display_coupons(coupons, coupon_count);
+
+                    // Delete a coupon by code
+                    char coupon_code[20];
+                    printf("Enter the coupon code to delete: ");
+                    if (scanf("%19s", coupon_code) != 1) {
+                        printf("Invalid input.\n");
+                    } else {
+                        if (delete_coupon(coupon_code) == 0) {
+                            printf("Coupon deleted successfully.\n");
+                        } else {
+                            printf("Coupon not found.\n");
+                        }
+                    }
+                } else {
+                    printf("Failed to load coupons.\n");
+                }
+                break;
+            }
+            case 4: {
+                printf("Back..\n");
+                running = 0; // Stop the loop
+                break;
+            }
+            default: {
+                printf("Invalid choice. Please enter a number between 1 and 4.\n");
+                break;
+            }
+        }
     }
 }

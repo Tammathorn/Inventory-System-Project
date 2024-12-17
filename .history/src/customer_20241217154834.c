@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "inventory.h"
-#include "coupons.h"
 
 int basket_length = 0;
 int data_length = 0;
