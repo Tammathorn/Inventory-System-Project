@@ -140,8 +140,7 @@ void load_data_from_file(const char *file_path) {
 }
 
 // Function to load and display all products from a CSV file
-int show_list_product(const char *file_path) {
+void show_list_product(const char *file_path) {
     load_data_from_file(file_path); // Load data from the file
     view_products();                // Display the products
-    return 0;
 }
