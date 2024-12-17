@@ -5,8 +5,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-char *coupon_path = "data/coupons.csv";
-
 // Function to automatically clean up expired coupons
 void auto_cleanup_expired_coupon() {
     printf("Cleaning up expired coupons...\n");

@@ -3,9 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Define the path to save the coupon data
-extern char *coupon_path;
-
 int get_discount_data(int *discount_type, float *discount_price,
                       int *discount_percent);
 int get_product_data(char *product_name, char *category);

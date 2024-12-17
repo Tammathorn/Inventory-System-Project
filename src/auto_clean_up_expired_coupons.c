@@ -4,7 +4,6 @@
 #include <time.h>
 #include "coupons.h"
 
-extern char *coupon_path;
  //Compare expired date with todays
 int is_expired(const char *expiry_date) {
     struct tm expiry = {0};
