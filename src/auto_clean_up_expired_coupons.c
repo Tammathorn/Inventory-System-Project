@@ -29,7 +29,7 @@ int clean_expired_coupons() {
         return -1;
     }
 
-    FILE *temp_file = fopen("data/temp.csv", "w");
+    FILE *temp_file = fopen("temp.csv", "w");
     if (temp_file == NULL) {
         perror("Error opening temporary file");
         fclose(file);
@@ -55,7 +55,7 @@ int clean_expired_coupons() {
     fclose(temp_file);
 
     remove(coupon_path);
-    rename("data/temp.csv", coupon_path);
+    rename("temp.csv", coupon_path);
 
     return expired_count;
 }
