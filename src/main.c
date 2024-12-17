@@ -3,15 +3,13 @@
 #include <string.h>
 #include <time.h>
 #include "inventory.h"
-#include "coupons.h"
 
 // Function prototypes
 void login_system();
 
 // Path to data
-char *data_path = "data/test.csv";
-char *basket_path = "data/basket.csv";
-char *coupon_path = "data/coupons.csv";
+char *data_path = "data/inventory.csv";
+char *basket_path = "data/Cart.csv";
 
 int main() {
     login_system();
@@ -68,8 +66,6 @@ void login_system() {
                         save_to_file(file_path);
                         break;
                     case 6:
-                        clean_expired_coupons();
-                        manage_coupons();
                         break;
                     case 7:
                         printf("Returning to main menu.\n");
