@@ -209,8 +209,7 @@ int basket_data_system() {
             if (strcmp(data[i].name, basket[j].name) == 0) {
 
                 // Should apply coupon here !
-                
-
+                 apply_coupon();
 
                 
                 data[i].quantity -= basket[j].quantity;
