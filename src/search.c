@@ -8,6 +8,8 @@ float max_price;
 int min_amount;
 int max_amount;
 
+int input_min_max();
+
 int search(char *string, char *path, char *data_name, char *data_type, int *data_number, float *data_price) {
     
     // check file 
@@ -55,9 +57,12 @@ int filter_product(float *min, float *max, char *string) {
     printf("Insert 2 for filter minimum and maximum quantity of the stock\n");
     
     int filter_type;
-
-    printf("Enter product type you want to filter : ");
-    scanf("%d", &filter_type);
+    do {
+        printf("Enter product type you want to filter : ");
+        scanf("%d", &filter_type);
+    }
+    
+    while (filter_type != 0 && filter_type != 1 && filter_type != 2);
 
     if (filter_type == 0) {
         printf("Enter your category: ");
@@ -66,20 +71,12 @@ int filter_product(float *min, float *max, char *string) {
 
     else if (filter_type == 1) {
         
-        printf("Enter minimum price : ");
-        scanf("%f", min);
-
-        printf("Enter maximum price : ");
-        scanf("%f", max);
+        input_min_max(min, max);
     }
 
     else if (filter_type == 2) {
 
-        printf("Enter minimum amount in the stocks : ");
-        scanf("%f", min);
-
-        printf("Enter maximum amount in the stocks : ");
-        scanf("%f", max);
+        input_min_max(min, max);
     }   
 
     return filter_type;
@@ -87,6 +84,7 @@ int filter_product(float *min, float *max, char *string) {
 
 int show_list_product(char *path, int filter_choice, float *min, float *max, char *string) {
 
+    int show = 0;
     FILE *inventory = fopen(path, "r");
     
 
@@ -108,6 +106,7 @@ int show_list_product(char *path, int filter_choice, float *min, float *max, cha
             case 0:
                 if (strcmp(string, type) == 0) {
                     printf("%9s %9s %d %.2f\n", name, type, quantity, price);
+                    show++;
                 }
 
                 break;
@@ -116,6 +115,7 @@ int show_list_product(char *path, int filter_choice, float *min, float *max, cha
                 
                 if (price >= *min && price <= *max) {
                     printf("%9s %9s %d %.2f\n", name, type, quantity, price);
+                    show++;
                 }
 
                 break;
@@ -123,14 +123,20 @@ int show_list_product(char *path, int filter_choice, float *min, float *max, cha
             case 2:
             if (quantity >= *min && quantity <= *max) {
                     printf("%9s %9s %d %.2f\n", name, type, quantity, price);
+                    show++;
                 }
                 
                 break;
 
             default:
                 printf("%9s %9s %d %f\n", name, type, quantity, price);
+                show++;
                 break;
             }
+        }
+
+        if (show == 0) {
+            printf("No data is found\n");
         }
 
         fclose(inventory);
@@ -141,6 +147,8 @@ int show_list_product(char *path, int filter_choice, float *min, float *max, cha
 
 int show_list_product_struct(struct file_data *data, int length_struct, int filter_choice, char *string) {
     
+    int show = 0;
+
     if ( (data == NULL) ) {
         printf("Struct is not found");
     }
@@ -155,6 +163,7 @@ int show_list_product_struct(struct file_data *data, int length_struct, int filt
             case 1:
                 if (strcmp(string, data[i].type) == 0) {
                     printf("%9s %9s %d %f\n", data[i].name, data[i].type, data[i].quantity, data[i].price);
+                    show++;
                 }
                 break;
             
@@ -162,21 +171,47 @@ int show_list_product_struct(struct file_data *data, int length_struct, int filt
                 
                 if (data[i].price >= min_price && data[i].price <= max_price) {
                     printf("%9s %9s %d %f\n", data[i].name, data[i].type, data[i].quantity, data[i].price);
+                    show++;
                 }
                 break;
 
             case 3:
             if (data[i].quantity >= min_amount && data[i].quantity <= max_amount) {
                     printf("%9s %9s %d %f\n", data[i].name, data[i].type, data[i].quantity, data[i].price);
+                    show++;
                 }
                 break;
 
             default:
                 printf("%9s %9s %d %f\n", data[i].name, data[i].type, data[i].quantity, data[i].price);
+                show++;
                 break;
             }
         }
 
+        if (show == 0) {
+            printf("No data is found\n");
+        }
+
         return 0;
     }
+}
+
+int input_min_max(float *min, float *max) {
+
+    do {
+        printf("Enter minimum : ");
+        scanf("%f", min);
+    }
+
+    while(*min < 0);
+
+    do {
+        printf("Enter maximum : ");
+        scanf("%f", max);
+    }
+
+    while(*max < 0 || *max <= *min);
+    
+    return 0;
 }

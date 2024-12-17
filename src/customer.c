@@ -92,7 +92,7 @@ int customer_system() {
                 while (found == 2);
 
                 amount_warehouse = check_warehouse(string);
-                printf("amount_warehouse : %d", amount_warehouse);
+                printf("Amount of warehouse : %d\n", amount_warehouse);
 
                 do {
                     
@@ -148,7 +148,6 @@ int customer_system() {
 
                 int maximum = check_warehouse(string);
                 editFile(basket_path, string, maximum);
-                // find number of product left in stock
 
                 break;
 
@@ -161,8 +160,8 @@ int customer_system() {
 
                 if (strcmp(purchase, "Yes") == 0) {
                     
-                    printf("Your basket are");
-                    show_list_product_struct(basket, basket_length, 3);
+                    printf("Your basket are\n");
+                    show_list_product_struct(basket, basket_length, 4);
                     printf("\n");
 
                     basket_data_system();
@@ -177,7 +176,6 @@ int customer_system() {
             case 7:
                 printf("--------  Exit the program  --------");
                 save_system(basket, basket_length, basket_path);
-                printf("%d", basket_length);
                 save_system(basket, basket_length, sold_path);
                 
                 return 0;
@@ -260,7 +258,6 @@ void save_system(struct file_data *data_struct, int length, char *path) {
     FILE *file = fopen(path, "w");
 
     for (int i = 0; i < length; i++) {
-        printf("%s %s %d %.2f\n", data_struct[i].name, data_struct[i].type, data_struct[i].quantity, data_struct[i].price);
         fprintf(file, "%s %s %d %.2f\n", data_struct[i].name, data_struct[i].type, data_struct[i].quantity, data_struct[i].price);
     }
 
@@ -271,7 +268,6 @@ void save_system(struct file_data *data_struct, int length, char *path) {
 // change data from basket file to inventory file here
 int basket_data_system() {
 
-    printf("basket_length %d", basket_length);
     for (int i = 0; i < data_length; i++) {
         for (int j = 0; j < basket_length; j++) {
 
