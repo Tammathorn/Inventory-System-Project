@@ -1,4 +1,5 @@
 #include "inventory.h"
+#include <stdio.h>
 
 // Global variables
 product_t inventory[MAX_PRODUCTS]; // Array to store products
