@@ -21,8 +21,13 @@ void login_system() {
     do {
         printf("What is your role? 1 for customer and 2 for owner: ");
         scanf("%d", &choice);
-    }
-    while (choice != 1 && choice != 2);
+
+        if (choice != 1 && choice != 2) {
+            printf("Invalid choice! Exiting...\n");
+            exit(0); 
+        }   
+    }while (choice != 1 && choice != 2);
+    
 
     switch(choice) {
         case 1:
@@ -50,27 +55,33 @@ void login_system() {
 
                 switch (action_choice) {
                     case 1:
+                        printf("==================================================================================================================\n");
                         create_product();
                         break;
                     case 2:
+                        printf("==================================================================================================================\n");
                         view_products();
                         break;
                     case 3:
+                        printf("==================================================================================================================\n");
                         edit_product();
                         break;
                     case 4:
+                        printf("==================================================================================================================\n");
                         delete_product();
                         break;
                     case 5:
+                        printf("==================================================================================================================\n");
                         save_to_file(file_path);
                         break;
                     case 6:
-                        break;
-                    case 7:
+                        printf("==================================================================================================================\n");
                         printf("Returning to main menu.\n");
-                        return ; // Return to main menu after CRUD operations
+                        printf("==================================================================================================================\n");
+                        login_system();
+                        break;
                     default:
-                        printf("Invalid choice! Try again.\n");
+                        printf("Invalid choice! Please try again.\n");
                 }
             }
             break;
