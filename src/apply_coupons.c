@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <inventory.h>
+#include "inventory.h"
 
 extern int basket_length;             // Number of items in the basket
 extern struct file_data basket[];     // Structure for items in the basket
