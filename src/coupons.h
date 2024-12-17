@@ -24,15 +24,19 @@ int create_coupon();
 int validate_date(const char *date);
 
 // Display and Manage
-int load_coupons(coupon_t coupons[], int *coupon_count, const char *file_path);
+int load_coupons(coupon_t coupons, int *coupon_count, const char *file_path);
 void display_coupons();
 int delete_coupon(const char *coupon_code);
+
 
 // Auto clean up expired
 int clean_expired_coupons();
 void auto_cleanup_expired_coupon();
+void delete_used_coupon(const char *used_coupon_code) 
+
 
 // Run manage coupons
 void manage_coupons();
+void apply_coupon();
 
 #endif // COUPONS_H
