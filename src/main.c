@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "inventory.h"
+#include "logging.h"
 
 // Function prototypes
 void login_system();
@@ -12,7 +13,17 @@ char *data_path = "data/inventory.csv";
 char *basket_path = "data/Cart.csv";
 
 int main() {
+
+    //initialized log system
+    init_Log("system.log");
+    log_Action("System initilized");
+
     login_system();
+
+    //CLose log
+    log_Action("System shutting down");
+    close_Log();
+
     return 0;
 }
 
@@ -31,11 +42,13 @@ void login_system() {
 
     switch(choice) {
         case 1:
+            log_Action("Custom log in");
             printf("Welcome customer!\n");
             customer_system();  // Call the customer system
             break;
 
         case 2:
+            log_Action("Custom log in");
             printf("Welcome owner!\n");
 
             const char *file_path = "inventory.csv";  
