@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "inventory.h"
-#include "log_reader.h"
+#include "logging.h"
 
 // Function prototypes
 void login_system();
