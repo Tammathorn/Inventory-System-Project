@@ -16,6 +16,9 @@ int basket_data_system();
 void save_system();
 int read_file();
 int filter_product();
+void clear_struct();
+void append_struct_file();
+
 
 // declare structure of basket and inventory
 struct file_data basket[MAX_PRODUCT];
@@ -147,7 +150,7 @@ int customer_system() {
                 scanf("%s", string);
 
                 int maximum = check_warehouse(string);
-                editFile(basket_path, string, maximum);
+                editFile(basket, string, maximum, basket_length);
 
                 break;
 
@@ -161,7 +164,9 @@ int customer_system() {
                 if (strcmp(purchase, "Yes") == 0) {
                     
                     printf("Your basket are\n");
+                    printf(" ---------------------- ");
                     show_list_product_struct(basket, basket_length, 4);
+                    printf(" ---------------------- ");
                     printf("\n");
 
                     basket_data_system();
@@ -176,7 +181,10 @@ int customer_system() {
             case 7:
                 printf("--------  Exit the program  --------");
                 save_system(basket, basket_length, basket_path);
-                save_system(basket, basket_length, sold_path);
+
+                // save to sold csv
+                append_struct_file(sold_path, basket, basket_length);
+
                 
                 return 0;
 
@@ -258,11 +266,34 @@ void save_system(struct file_data *data_struct, int length, char *path) {
     FILE *file = fopen(path, "w");
 
     for (int i = 0; i < length; i++) {
-        fprintf(file, "%s %s %d %.2f\n", data_struct[i].name, data_struct[i].type, data_struct[i].quantity, data_struct[i].price);
+        if (strcmp(data_struct[i].name, "None") != 0) {
+            fprintf(file, "%s %s %d %.2f\n", data_struct[i].name, data_struct[i].type, data_struct[i].quantity, data_struct[i].price);
+        }
+        
     }
 
     fclose(file);
 
+}
+
+void append_struct_file(char *file_to_append, struct file_data *append_struct, int length_struct) {
+
+    FILE *file = fopen(file_to_append, "r");
+
+    int index = 0;
+    char name[MAX_CHAR];
+    char type[MAX_CHAR];
+    int quantity;
+    float price;
+
+    while (fscanf(file, "%s %s %d %f", name, type, &quantity, &price) != EOF) {
+        for (int i = 0; i < length_struct; i++) {
+            if (strcmp(name, append_struct[i].name)) {
+                append_struct += quantity;
+            }
+        }
+        index++;
+    }
 }
 
 // change data from basket file to inventory file here
@@ -282,6 +313,15 @@ int basket_data_system() {
     return 0;   
 }
 
+void clear_struct(struct file_data *data, int length) {
+    for (int i = 0; i < length; i++) {
+        strcpy(data[i].name, "None");
+        strcpy(data[i].type, "None");
+        data[i].quantity = 0;
+        data[i].price = 0;
+    }
+
+}
 
 // Check number of remaining stock
 int check_warehouse(char *name_to_find) {
