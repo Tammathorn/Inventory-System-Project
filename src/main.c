@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "inventory.h"
-#include "logging.h"
+#include "log_reader.h"
 
 // Function prototypes
 void login_system();
@@ -16,12 +16,12 @@ int main() {
 
     //initialized log system
     init_Log("system.log");
-    log_Action("System initilized");
+    log_Reader("System initilized");
 
     login_system();
 
     //CLose log
-    log_Action("System shutting down");
+    log_Reader("System shutting down");
     close_Log();
 
     return 0;
